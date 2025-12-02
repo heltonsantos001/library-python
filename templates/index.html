@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca Flask</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+    <h1>Sistema de Biblioteca (Flask + SQLite)</h1>
+
+    <!-- FORMULÁRIO PARA CRIAR LIVRO (POST) -->
+    <div class="form-box">
+        <h2>Adicionar Livro</h2>
+        <form method="POST" action="/adicionar">
+            <input type="text" name="titulo" placeholder="Título" required>
+            <input type="text" name="autor" placeholder="Autor" required>
+            <input type="number" name="ano_publicacao" placeholder="Ano de publicação" required>
+
+            <label>
+                <input type="checkbox" name="disponivel"> Disponível
+            </label>
+
+            <button class="btn btn-save">Salvar</button>
+        </form>
+    </div>
+
+    <h2>Livros cadastrados</h2>
+
+</body>
+</html>
