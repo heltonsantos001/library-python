@@ -175,13 +175,13 @@ def atualizar_livro(id: int, livro: Livro):
     conn = connect()
     cursor = conn.cursor()
 
-    # verifica se existe
+   
     cursor.execute("SELECT * FROM livros WHERE id=?", (id,))
     if cursor.fetchone() is None:
         conn.close()
         raise HTTPException(status_code=404, detail="Livro não encontrado.")
 
-    # atualiza
+    
     cursor.execute("""
         UPDATE livros
         SET titulo=?, autor=?, ano_publicacao=?, disponivel=?

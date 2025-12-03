@@ -19,9 +19,25 @@ h1 {
 input, select {
     padding: 8px;
     margin: 5px 0;
-    width: 100%;
+    width: 90%;
     border-radius: 5px;
     border: 1px solid #aaa;
+}
+
+.inpu-get{
+    width:95% !important;
+}
+
+span{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+span h1{
+   font-size: 1em;
+}
+span input{
+    width: 20px;
 }
 
 .btn {
@@ -34,3 +50,121 @@ input, select {
 .btn-save { background: #4CAF50; color: white; }
 .btn-edit { background: #0099ff; color: white; }
 .btn-delete { background: #ff4444; color: white; }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+.form-box {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.form-box input[type="text"],
+.form-box input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-box label {
+    display: block;
+    margin: 8px 0;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table button {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table button:hover {
+    background-color: #c82333;
+}
+
+.acoes {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.acoes button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-editar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-atualizar {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.acoes button:hover {
+    opacity: 0.8;
+}

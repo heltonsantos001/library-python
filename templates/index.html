@@ -13,19 +13,72 @@
     <div class="form-box">
         <h2>Adicionar Livro</h2>
         <form method="POST" action="/adicionar">
-            <input type="text" name="titulo" placeholder="Título" required>
-            <input type="text" name="autor" placeholder="Autor" required>
-            <input type="number" name="ano_publicacao" placeholder="Ano de publicação" required>
+            <input class="inpu-get" type="text" name="titulo" placeholder="Título" required>
+            <input class="inpu-get" type="text" name="autor" placeholder="Autor" required>
+            <input class="inpu-get" type="number" name="ano_publicacao" placeholder="Ano de publicação" required>
 
-            <label>
-                <input type="checkbox" name="disponivel"> Disponível
-            </label>
+            <span>
+                <h1>Disponível</h1>
+                <input type="checkbox" name="disponivel"> 
+            </span>
 
             <button class="btn btn-save">Salvar</button>
         </form>
     </div>
 
     <h2>Livros cadastrados</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ano</th>
+            <th>Disponível</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for livro in livros %}
+        <tr>
+            <form method="POST" action="/atualizar/{{ livro[0] }}">
+                <td>{{ livro[0] }}</td>
+                <td><input type="text" name="titulo" value="{{ livro[1] }}" disabled required></td>
+                <td><input type="text" name="autor" value="{{ livro[2] }}" disabled required></td>
+                <td><input type="number" name="ano_publicacao" value="{{ livro[3] }}" disabled required></td>
+                <td><input type="checkbox" name="disponivel" {% if livro[4] %}checked{% endif %} disabled></td>
+                <td class="acoes">
+                    <button type="button" class="btn-editar">Editar</button>
+                    <button type="submit" class="btn-atualizar" style="display:none;">Salvar</button>
+                    <button type="submit" name="_method" value="DELETE" class="btn-excluir">Excluir</button>
+                </td>
+            </form>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const botoesEditar = document.querySelectorAll('.btn-editar');
+
+            botoesEditar.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    const linha = botao.closest('tr');
+                    linha.querySelectorAll('input').forEach(input => input.disabled = false);
+                    botao.style.display = 'none';
+                    linha.querySelector('.btn-atualizar').style.display = 'inline-block';
+                });
+            });
+        });
+    </script>
+
+
+
+
 
 </body>
 </html>
