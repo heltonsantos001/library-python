@@ -242,3 +242,84 @@ DELETE	/livros/{id}	Remove um livro	200, 404
 ```
 http://127.0.0.1:8000/docs
 
+
+# 5.Processo de Retorno de HTML Dinâmico (Flask + Jinja2)
+
+Este README explica como a aplicação Flask (`app_flask.py`) lida com a requisição de um usuário e retorna o conteúdo HTML dinâmico, utilizando o motor de templates Jinja2 e os dados do banco de dados SQLite.
+
+---
+
+## . Fluxo de Requisição e Resposta
+
+O coração do retorno de HTML está na função de view do Flask, onde os dados são buscados e injetados em um template.
+
+### A Rota Principal (app_flask.py)
+
+A rota principal (`/`) é responsável por buscar a lista de livros no banco de dados (`biblioteca.db`) e usar o Flask para gerar o HTML final.
+
+```python
+# app_flask.py
+
+from flask import Flask, render_template, request, redirect
+import sqlite3
+# ... (função connect)
+
+# -----------------------
+# Rota principal (GET)
+# Lista livros
+# -----------------------
+@app.route("/", methods=["GET"])
+def index():
+    # 1. Busca os dados no banco de dados SQLite
+    conn = connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM livros")
+    livros = cursor.fetchall() # 'livros' é uma lista de tuplas
+    conn.close()
+
+    # 2. Renderiza o template 'index.html', passando a lista de livros
+    return render_template("index.html", livros=livros)
+```
+Explicação dos Passos
+
+Busca de Dados: A função index() se conecta ao SQLite e executa uma query para buscar todos os livros, armazenando o resultado na variável livros.
+
+Retorno de HTML: A função render_template("index.html", livros=livros) é chamada.
+
+Ela localiza o template index.html (geralmente na pasta templates).
+
+Passa a variável Python livros para o template, onde ela será acessível.
+
+O Jinja2 processa o template, substituindo as variáveis e executando os loops.
+
+O Flask retorna a string HTML final como resposta HTTP 200 (OK) para o navegador.
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+O Template Dinâmico (index.html)
+
+O arquivo index.html é um template Jinja2. Ele contém a estrutura HTML padrão, mas usa a sintaxe especial de templates para inserir o conteúdo dinâmico.
+
+Uso do Jinja2 para Renderização de Dados
+
+No template, a lista livros enviada pela rota do Flask é percorrida para construir a tabela de livros:
+```
+<tbody>
+    {% for livro in livros %}
+    <tr>
+        <form method="POST" action="/atualizar/{{ livro[0] }}">
+            <td>{{ livro[0] }}</td>
+            <td><input type="text" name="titulo" value="{{ livro[1] }}" disabled required></td>
+        </form>
+    </tr>
+    {% endfor %}
+</tbody>
+```
+{% ... %}: Usado para blocos de controle (como for loops, if statements).
+
+{{ ... }}: Usado para exibir o valor de uma variável.
+
+O motor Jinja2 transforma esse código de template em HTML puro, injetando os dados de cada livro, antes que o Flask o envie ao navegador.
+
+
+
